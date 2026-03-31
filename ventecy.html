@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ventecy Countdown</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000; /* pure black */
+        color: #fff;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.8rem;
+        margin-bottom: 40px;
+        letter-spacing: 3px;
+        color: #a855f7; /* purple */
+        font-weight: 600;
+    }
+
+    .countdown {
+        display: flex;
+        gap: 25px;
+        justify-content: center;
+    }
+
+    .box {
+        background: #0a0a0a;
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        padding: 25px;
+        width: 110px;
+        border-radius: 12px;
+        transition: 0.25s ease;
+    }
+
+    .box:hover {
+        border-color: #a855f7;
+        transform: translateY(-4px);
+    }
+
+    .number {
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .label {
+        margin-top: 8px;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        color: #a855f7;
+    }
+
+    .finished {
+        font-size: 2rem;
+        color: #a855f7;
+        letter-spacing: 2px;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>VENTECY COUNTDOWN</h1>
+    <div class="countdown" id="countdown">
+        <div class="box">
+            <div id="days" class="number">0</div>
+            <div class="label">DAYS</div>
+        </div>
+        <div class="box">
+            <div id="hours" class="number">0</div>
+            <div class="label">HOURS</div>
+        </div>
+        <div class="box">
+            <div id="minutes" class="number">0</div>
+            <div class="label">MINUTES</div>
+        </div>
+        <div class="box">
+            <div id="seconds" class="number">0</div>
+            <div class="label">SECONDS</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // April 13, 15:00 CET = 14:00 UTC
+    const targetDate = new Date("2026-04-13T14:00:00Z").getTime();
+
+    function updateCountdown() {
+        const now = Date.now();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById("countdown").innerHTML =
+                "<div class='finished'>VENTECY IS LIVE</div>";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+        document.getElementById("seconds").textContent = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+</body>
+</html>
